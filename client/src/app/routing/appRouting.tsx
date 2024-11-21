@@ -1,25 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../../shared/ui/main-layout/index";
-import { Auth } from "../../pages/Auth/index";
+import  Auth  from "../../pages/Auth/index";
 import { List } from "../../pages/List/index";
 import { PickInfo } from "../../pages/PickInfo/index";
 import { Control } from "../../pages/Control/index";
 import { Equipment } from "../../pages/Equipment/index";
 import { Statistics } from "../../pages/Statistics/index";
 import { Task } from "../../pages/Tasks/index";
-import { RequireAuth } from "../../features/auth/index";
-import { AuthProvider } from "../../features/auth/index";
+import { RequireAuth } from "../../features/auth/hocs/RequireAuth";
 import { listLoader } from "../../pages/List/index";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <AuthProvider> <MainLayout /> </AuthProvider>,
+        element: <MainLayout />,
         children: [
             {
                 index: true,
                 element: <Auth />
-            },
+            },            
             {
                 path: 'list',
                 element: <List />,
@@ -27,7 +26,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'list/:id',
-                element: <RequireAuth> <PickInfo /> </RequireAuth>,
+                element: <RequireAuth><PickInfo /></RequireAuth>,                
                 children: [
                     {
                         path: 'control',  
