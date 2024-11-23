@@ -2,7 +2,9 @@ import { Link, Outlet, useNavigate } from "react-router-dom"
 import { useLogout } from "../../features/auth";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store/store";
-import { Button } from "antd";
+import { Button} from "antd";
+import { CloseCircleOutlined, CaretLeftOutlined } from '@ant-design/icons';
+import module from './PickInfo.module.scss'
 
 const PickInfo = () => {
     const navigate = useNavigate()
@@ -12,15 +14,28 @@ const PickInfo = () => {
 
 
     return (
-        <div>
-            <Link to='control'>Control</Link>
-            <Link to='equipment'>Equipment</Link>
-            <Link to='statistics'>Statistics</Link>
-            <Link to='task'>Task</Link>        
-            <Button onClick={goBack}>back</Button>
-            <Button onClick={handleLogout}>Log out fromss {email}</Button>
+        <>
+            <header className={module.header}>
+                <Link to='control'>Control</Link>
+                <Link to='equipment'>Equipment</Link>
+                <Link to='statistics'>Statistics</Link>
+                <Link to='task'>Task</Link>
+                <Button
+                onClick={goBack}                
+                type="primary"
+                style={{ insetInlineEnd: 94 }}                
+                icon={<CaretLeftOutlined />}
+                >back</Button>  
+                <Button
+                onClick={handleLogout}                
+                type="primary"
+                style={{ insetInlineEnd: 94 }}
+                icon={<CloseCircleOutlined />}
+                >{email}</Button>                                      
+            </header>
             <Outlet />
-        </div>)
+        </>
+    )
 }
 
 export default PickInfo
