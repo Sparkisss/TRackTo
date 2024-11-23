@@ -1,13 +1,16 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../../shared/ui/main-layout/index";
-import  Auth  from "../../pages/Auth/index";
-import ListOfUsers, { listLoader } from '../../pages/ListOfUsers/index'
-import { PickInfo } from "../../pages/PickInfo/index";
-import { Control } from "../../pages/Control/index";
-import { Equipment } from "../../pages/Equipment/index";
-import { Statistics } from "../../pages/Statistics/index";
-import { Task } from "../../pages/Tasks/index";
+import { listLoader } from '../../pages/ListOfUsers/index'
 import { RequireAuth } from "../../features/auth";
+
+const Statistics = React.lazy(() => import("../../pages/Statistics/index"))
+const Tasks = React.lazy(() => import("../../pages/Tasks/index"))
+const Equipment = React.lazy(() => import("../../pages/Equipment/index"))
+const Control = React.lazy(() => import("../../pages/Control/index"))
+const PickInfo = React.lazy(() => import("../../pages/PickInfo/index"))
+const Auth = React.lazy(() => import("../../pages/Auth/index"))
+const ListOfUsers = React.lazy(() => import("../../pages/ListOfUsers/index"))
 
 export const router = createBrowserRouter([
     {
@@ -41,7 +44,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'task', 
-                        element: <Task />
+                        element: <Tasks />
                     },
                 ]
             }

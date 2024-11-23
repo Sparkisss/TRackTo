@@ -13,6 +13,6 @@ createRoot(document.getElementById('root')!).render(
       <AuthObserver>
         <App />
       </AuthObserver>      
-    </Provider>    
+    </Provider>   
   </StrictMode>,
 );
