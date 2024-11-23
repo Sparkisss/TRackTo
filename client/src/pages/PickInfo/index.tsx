@@ -11,8 +11,7 @@ const PickInfo = () => {
     const goBack = () => navigate(-1)    
     const handleLogout = useLogout();
     const email = useSelector((state: RootState) => state.user.email)
-
-
+    
     return (
         <>
             <header className={module.header}>
