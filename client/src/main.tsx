@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store/store';
-import { AuthObserver } from './features/auth/hocs/AuthObserver';
+import { AuthObserver } from './features/auth';
 import { App } from './app/index';
 import './shared/api/firebase'
 import './index.scss';

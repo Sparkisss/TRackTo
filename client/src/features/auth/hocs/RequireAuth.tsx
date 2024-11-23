@@ -1,7 +1,8 @@
 import { useLocation, Navigate } from 'react-router-dom';
-import { useAuthState } from '../hooks/useAuthState';
+import { useAuthState } from '../';
+import { AuthObserverProps } from '../model/types';
 
-export const RequireAuth = ({ children }: any) => {
+export const RequireAuth: React.FC<AuthObserverProps> = ({ children }) => {
     const location = useLocation();
     const { isAuth, loading } = useAuthState();
 

@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../../shared/ui/main-layout/index";
 import  Auth  from "../../pages/Auth/index";
-import { List } from "../../pages/List/index";
+import ListOfUsers, { listLoader } from '../../pages/ListOfUsers/index'
 import { PickInfo } from "../../pages/PickInfo/index";
 import { Control } from "../../pages/Control/index";
 import { Equipment } from "../../pages/Equipment/index";
 import { Statistics } from "../../pages/Statistics/index";
 import { Task } from "../../pages/Tasks/index";
-import { RequireAuth } from "../../features/auth/hocs/RequireAuth";
-import { listLoader } from "../../pages/List/index";
+import { RequireAuth } from "../../features/auth";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +20,7 @@ export const router = createBrowserRouter([
             },            
             {
                 path: 'list',
-                element: <List />,
+                element: <ListOfUsers />,
                 loader: listLoader,
             },
             {

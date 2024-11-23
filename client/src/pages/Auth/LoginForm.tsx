@@ -2,13 +2,9 @@ import React from "react";
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
+import { LoginData } from "../../features/auth/model/types";
 
-interface FormValues {
-    email: string;
-    password: string;
-}
-
-const LoginForm: React.FC<{ onFinish: FormProps<FormValues>['onFinish'] }> = ({ onFinish }) => (
+const LoginForm: React.FC<{ onFinish: FormProps<LoginData>['onFinish'] }> = ({ onFinish }) => (
     <Form
         name="login"
         initialValues={{ remember: true }}

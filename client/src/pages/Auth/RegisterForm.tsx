@@ -1,17 +1,10 @@
-// src/pages/Auth/RegisterForm.tsx
-
 import React from "react";
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
+import { RegisterData } from "../../features/auth/model/types";
 
-interface FormValues {
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
-const RegisterForm: React.FC<{ onFinish: FormProps<FormValues>['onFinish'] }> = ({ onFinish }) => (
+const RegisterForm: React.FC<{ onFinish: FormProps<RegisterData>['onFinish'] }> = ({ onFinish }) => (
     <Form
         name="register"
         initialValues={{ remember: true }}

@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser, removeUser } from '../../../entities/model/user/userSlice';
+import { setUser, removeUser } from '../../../entities/user/model/userSlice';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-interface AuthObserverProps {
-  children: React.ReactNode;
-}
+import { AuthObserverProps } from '../model/types';
 
 export const AuthObserver: React.FC<AuthObserverProps> = ({ children }) => {
   const dispatch = useDispatch();

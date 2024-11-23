@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Space, Button } from 'antd';
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { useLogin } from "../../features/auth/hooks/useLogin";
-import { useRegister } from "../../features/auth/hooks/useRegister";
+import { useLogin, useRegister} from "../../features/auth";
 
 const Auth: React.FC = () => {
     const [loginMode, setLoginMode] = useState(true);
@@ -19,7 +18,7 @@ const Auth: React.FC = () => {
     };
 
     const toggleMode = () => {
-        setLoginMode(!loginMode);
+        setLoginMode(!loginMode);        
     };
 
     return (

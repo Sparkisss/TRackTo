@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useAppDispatch } from "./useReduxType"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { setUser } from "../../../entities/model/user/userSlice"
+import { setUser } from "../../../entities/user/model/userSlice"
 
 export const useRegister = () => {
     const dispatch = useAppDispatch();
