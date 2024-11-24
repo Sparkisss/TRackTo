@@ -1,23 +1,8 @@
-import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store/store';
 
 export const useAuthState = () => {
-    const [isAuth, setIsAuth] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const isAuth = useSelector((state: RootState) => !!state.user.email)
 
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setIsAuth(true);
-            } else {
-                setIsAuth(false);
-            }
-            setLoading(false);
-        });
-
-        return () => unsubscribe();
-    }, []);
-
-    return { isAuth, loading };
+    return { isAuth };
 };

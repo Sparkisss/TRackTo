@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'task', 
-                        element: <Tasks />
+                        element: <Tasks />,
                     },
                 ]
             }

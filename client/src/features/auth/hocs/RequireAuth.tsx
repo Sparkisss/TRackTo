@@ -4,11 +4,7 @@ import { AuthObserverProps } from '../model/types';
 
 export const RequireAuth: React.FC<AuthObserverProps> = ({ children }) => {
     const location = useLocation();
-    const { isAuth, loading } = useAuthState();
-
-    if (loading) {
-        return <div>Loading...</div>; 
-    }
+    const { isAuth } = useAuthState();
 
     if (!isAuth) {
         return <Navigate to="/" state={{ from: location }} replace />;
