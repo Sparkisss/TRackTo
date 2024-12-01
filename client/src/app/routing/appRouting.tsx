@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "../../shared/ui/main-layout/index";
 import { listLoader } from '../../pages/ListOfUsers/index'
-import { RequireAuth } from "../../features/auth";
+import { AuthObserver } from "../../features/auth";
 
 const Statistics = React.lazy(() => import("../../pages/Statistics/index"))
 const Tasks = React.lazy(() => import("../../pages/Tasks/index"))
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'list/:id',
-                element: <RequireAuth><PickInfo /></RequireAuth>,                
+                element: <AuthObserver><PickInfo /></AuthObserver>,                
                 children: [
                     {
                         path: 'control',  
@@ -43,8 +43,16 @@ export const router = createBrowserRouter([
                         element: <Statistics />
                     },
                     {
-                        path: 'task', 
-                        element: <Tasks />,
+                        path: 'list/tasks',                         
+                        element: <Tasks />,                                                                   
+                    },
+                    {
+                        path: 'list/dashboard', 
+                        element: <div>dashboard</div>,                                                                   
+                    },
+                    {
+                        path: 'list/setting', 
+                        element: <div>setting</div>,                                                                   
                     },
                 ]
             }

@@ -18,7 +18,7 @@ const PickInfo = () => {
                 <Link to='control'>Control</Link>
                 <Link to='equipment'>Equipment</Link>
                 <Link to='statistics'>Statistics</Link>
-                <Link to='task'>Task</Link>
+                <Link to='list/tasks'>Task</Link>
                 <Button
                 onClick={goBack}                
                 type="primary"
