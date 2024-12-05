@@ -1,5 +1,5 @@
 const Equipment = () => {
-    return <>Equipment</>
+  return <>Equipment</>
 }
 
 export default Equipment

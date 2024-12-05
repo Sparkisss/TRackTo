@@ -1,5 +1,5 @@
 const Control = () => {
-    return <>Control</>
+  return <>Control</>
 }
 
 export default Control

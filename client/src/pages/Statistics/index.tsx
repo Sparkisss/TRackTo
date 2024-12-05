@@ -1,5 +1,5 @@
 const Statistics = () => {
-    return <>Statistics</>
+  return <>Statistics</>
 }
 
 export default Statistics
