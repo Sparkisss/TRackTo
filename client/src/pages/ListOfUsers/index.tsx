@@ -9,10 +9,7 @@ const ListOfUsers = () =>{
     <List
       itemLayout="vertical"
       size="large"
-      pagination={{
-        onChange: (page) => {
-          console.log(page)
-        },
+      pagination={{   
         pageSize: 3,
       }}
       dataSource={users}      
@@ -43,20 +40,6 @@ const ListOfUsers = () =>{
       )}
     />
   )
-}
-
-export const listLoader = async (): Promise<User[]> => {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/users")
-    if(!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`)
-    }
-    const data: User[] = await response.json()
-    return data
-  } catch (error) {
-    console.error("Fetch error:", error)
-    throw error
-  }
 }
 
 export default ListOfUsers

@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom"
 import { MainLayout } from "@/shared/ui/main-layout/index"
-import { listLoader } from "@/pages/ListOfUsers/index"
+import { listLoader } from "@/shared/api/tasks"
 import { AuthObserver } from "@/features/auth"
-
 import { Statistics, Tasks, Equipment, Control, PickInfo, Auth, ListOfUsers } from "@/shared/lazyImports"
-
 
 export const router = createBrowserRouter([
   {

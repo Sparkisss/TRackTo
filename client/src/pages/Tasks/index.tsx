@@ -16,25 +16,29 @@ const INITIAL_TASKS: TaskType[] = [
     id: "1",
     title: "Research Project",
     description: "Gather requirements and create initial documentation",
-    status: "TODO",
+    belong: "TODO",
+    status: false,
   },
   {
     id: "2",
     title: "Design System",
     description: "Create component library and design tokens",
-    status: "TODO",
+    belong: "TODO",
+    status: false,    
   },
   {
     id: "3",
     title: "API Integration",
     description: "Implement REST API endpoints",
-    status: "IN_PROGRESS",
+    belong: "IN_PROGRESS",
+    status: false,
   },
   {
     id: "4",
     title: "Testing",
     description: "Write unit tests for core functionality",
-    status: "DONE",
+    belong: "DONE",
+    status: false,
   },
 ]
 
@@ -43,7 +47,7 @@ const Task = () => {
 
   const tasksByColumn = useMemo(() => {
     return COLUMNS.reduce((acc, column) => {
-      acc[column.id] = tasks.filter(task => task.status === column.id)
+      acc[column.id] = tasks.filter(task => task.belong === column.id)      
       return acc
     }, {} as Record<string, TaskType[]>)
   }, [tasks])
@@ -54,11 +58,11 @@ const Task = () => {
     if (!over) return
 
     const taskId = active.id as string
-    const newStatus = over.id as TaskType["status"]
+    const newStatus = over.id as TaskType["belong"]
 
     setTasks(prevTasks =>
       prevTasks.map(task =>
-        task.id === taskId ? { ...task, status: newStatus } : task,
+        task.id === taskId ? { ...task, belong: newStatus } : task,
       ),
     )
   }

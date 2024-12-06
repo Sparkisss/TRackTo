@@ -17,6 +17,10 @@ const Column: FC<ColumnProps> = ({ column, className, tasks, cardClassName }) =>
     id: column.id,
   })
 
+  const AddTaskBtn = () => {
+    console.log('Ass')
+  }
+
   return (
     <div ref={setNodeRef} className={className}>
       {column.title}
@@ -27,7 +31,7 @@ const Column: FC<ColumnProps> = ({ column, className, tasks, cardClassName }) =>
         : tasks.map(task => (
           <TaskCard key={task.id} className={cardClassName} task={task} disabled={true}/>
         ))}
-      <Button>Add task...</Button>
+      <Button onClick={AddTaskBtn}>Add task...</Button>
     </div>  
   )
 }
