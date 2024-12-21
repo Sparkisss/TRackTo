@@ -1,34 +1,12 @@
-import { useState } from "react"
 import { useDroppable } from "@dnd-kit/core"
 import { Button } from "antd"
-import { ColumnType, TaskType } from "@/features/dragAndDrop/model/types"
 import TaskCard from "./TaskCard"
 import AddTaskModal from "@/features/tasks/ui/AddTaskModal/AddTaskModal"
-
-type ColumnProps = {
-    className: string;
-    cardClassName: string;
-    column: ColumnType;
-    tasks: TaskType[];
-};
+import { useModal } from "../model/hooks/useModal"
+import { ColumnProps } from "../model/types/types"
 
 export function Column({ column, className, tasks, cardClassName } : ColumnProps ) {
-        
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const showModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleOk = () => {
-    // Здесь можно добавить логику для добавления новой задачи
-    setIsModalOpen(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
-
+  const { isModalOpen, showModal, handleOk, handleCancel } = useModal()
   const { setNodeRef } = useDroppable({
     id: column.id,
   })
