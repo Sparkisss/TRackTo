@@ -1,5 +1,1 @@
-const Statistics = () => {
-  return <>Statistics</>
-}
-
-export default Statistics
+export { Statistics } from "./ui"

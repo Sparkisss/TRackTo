@@ -22,9 +22,18 @@ app.use('/', router)
 app.use(errorMiddleware)
 
 app.post('/add/task', async (req, res) => {
-    const {title, completed, status} = req.body
-    const post = await Task.create({title, completed, status})
+    const {belong, title, description, status} = req.body
+    const post = await Task.create({belong, title, description, status})
     res.status(200).json('OK')
+})
+
+app.get('/tasks', async(req, res) => {
+    try {
+        const tasks = await Task.find()
+        res.status(200).json(tasks);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 })
 
 const start = async () => {

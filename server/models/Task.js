@@ -1,9 +1,11 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
-const Task = new Schema({
-    title: {type: String, require: true},
-    completed: {type: Boolean, require: true},
-    status: {type: String, require: true},
-})
+const TaskSchema = new Schema({
+  belong: { type: String, enum: ["TODO", "IN_PROGRESS", "DONE"], required: true },  
+  title: { type: String, required: true },
+  description: { type: String, required: true },  
+  status: { type: Boolean, required: true },  
+});
 
-module.exports = model('Task', Task)
+module.exports = model('Task', TaskSchema);
+

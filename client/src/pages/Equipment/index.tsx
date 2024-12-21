@@ -1,5 +1,1 @@
-const Equipment = () => {
-  return <>Equipment</>
-}
-
-export default Equipment
+export { Equipment } from "./ui"

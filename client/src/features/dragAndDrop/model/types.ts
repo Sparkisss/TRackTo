@@ -1,7 +1,7 @@
 export type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
 
 export type TaskType = {
-  id: string;
+  id?: string;
   belong: TaskStatus;
   title: string;
   description: string;

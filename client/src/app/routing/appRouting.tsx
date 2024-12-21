@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       {
         path: "list",
         element: <ListOfUsers />,
-        loader: listLoader,
+        loader:() => listLoader("https://jsonplaceholder.typicode.com/users"),
       },
       {
         path: "list/:id",

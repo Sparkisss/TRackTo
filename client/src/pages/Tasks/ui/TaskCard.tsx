@@ -10,7 +10,7 @@ type TaskCardProps = {
     disabled: boolean;
 }
 
-const TaskCard: FC<TaskCardProps> = ({task, className, disabled}) => {
+export function TaskCard({task, className, disabled} : TaskCardProps) {
   const {attributes, listeners, setNodeRef, transform} = useDraggable({
     id: task.id,
   })

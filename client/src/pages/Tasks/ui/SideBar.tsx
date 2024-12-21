@@ -1,4 +1,3 @@
-import React from "react"
 import {
   ContainerOutlined,
   DesktopOutlined,
@@ -18,7 +17,7 @@ const items: MenuItem[] = [
   { key: "3", icon: <ContainerOutlined />, label: "Setting" },
 ]
 
-const App: React.FC = () => {
+export function SideBar() {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -39,5 +38,3 @@ const App: React.FC = () => {
     </div>
   )
 }
-
-export default App
