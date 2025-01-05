@@ -1,0 +1,13 @@
+/.git
+/.vscode
+/.github
+/.husky
+node_modules
+*.d.ts
+vite.config.ts
+build
+config
+commitlint.config.cjs
+*.spec.ts*
+playwright.config.ts
+steiger.config.ts

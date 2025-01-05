@@ -1,10 +1,12 @@
 import { useState, useMemo, useEffect } from "react"
 import { DndContext, DragEndEvent } from "@dnd-kit/core"
-import { ColumnType, TaskType } from "@/features/dragAndDrop/model/types"
-import { listLoader } from "@/shared/api/tasks"
+import { ColumnType, Task } from "@/features/dragAndDrop/model/types"
 import { Column } from "./Column"
 import { SideBar } from "./SideBar"
 import module from "./Task.module.scss"
+import { useAppDispatch, useAppSelector } from "@/features/auth"
+import { RootState } from "@/app/store/store"
+import { fetchTasks } from "@/entities/tasks/model/taskSlice"
 
 const COLUMNS: ColumnType[] = [
   { id: "TODO", title: "To Do" },
@@ -12,50 +14,26 @@ const COLUMNS: ColumnType[] = [
   { id: "DONE", title: "Done" },
 ]
 
-const INITIAL_TASKS: TaskType[] = [
-  {
-    id: "1",
-    title: "Research Project",
-    description: "Gather requirements and create initial documentation",
-    belong: "TODO",
-    status: false,
-  },
-  {
-    id: "2",
-    title: "Design System",
-    description: "Create component library and design tokens",
-    belong: "TODO",
-    status: false,    
-  },
-  {
-    id: "3",
-    title: "API Integration",
-    description: "Implement REST API endpoints",
-    belong: "IN_PROGRESS",
-    status: false,
-  },
-  {
-    id: "4",
-    title: "Testing",
-    description: "Write unit tests for core functionality",
-    belong: "DONE",
-    status: false,
-  },
-]
-
 export function Tasks() {
-  const [tasks, setTasks] = useState<TaskType[]>(INITIAL_TASKS)
+  const {tasks, isLoading, error} = useAppSelector((state: RootState) => state.tasks)
+  const [task, setTasks] = useState<Task[]>(tasks)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    listLoader("http://localhost:7000/tasks")
-  },[tasks])
+    dispatch(fetchTasks("http://localhost:7000/tasks"))    
+  }, [dispatch])
+
+  useEffect(() => { 
+    setTasks(tasks)
+  }, [tasks])
 
   const tasksByColumn = useMemo(() => {
     return COLUMNS.reduce((acc, column) => {
-      acc[column.id] = tasks.filter(task => task.belong === column.id)      
+      acc[column.id] = task.filter(t => t.belong === column.id)      
       return acc
-    }, {} as Record<string, TaskType[]>)
-  }, [tasks])
+    }, {} as Record<string, Task[]>)
+  }, [task])
 
   function handleDrag(event: DragEndEvent) {
     const { active, over } = event
@@ -63,18 +41,21 @@ export function Tasks() {
     if (!over) return
 
     const taskId = active.id as string
-    const newStatus = over.id as TaskType["belong"]
+    const newStatus = over.id as Task["belong"]
 
     setTasks(prevTasks =>
       prevTasks.map(task =>
-        task.id === taskId ? { ...task, belong: newStatus } : task,
+        task._id === taskId ? { ...task, belong: newStatus } : task,
       ),
     )
   }
 
+  if (isLoading) return <div>Loading...</div> 
+  if (error) return <div>Error: {error}</div>
+
   return (
     <div className={module.wrapper}>
-      <SideBar />
+      <SideBar />  
       <DndContext onDragEnd={handleDrag}>
         {COLUMNS.map((column) => (
           <Column

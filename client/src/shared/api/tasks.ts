@@ -1,5 +1,5 @@
 import { User } from "@/entities/user/model/types"
-import { TaskType } from "@/features/dragAndDrop/model/types"
+import { Task } from "@/features/dragAndDrop/model/types"
 
 export const listLoader = async (url: string): Promise<User[]> => {
   try {
@@ -15,7 +15,7 @@ export const listLoader = async (url: string): Promise<User[]> => {
   }
 }
 
-export const postTask = async (data: TaskType): Promise<TaskType> => {
+export const postTask = async (data: Task): Promise<Task> => {
   try {
     const response = await fetch("http://localhost:7000/add/task", {
       method: "POST",
@@ -28,8 +28,7 @@ export const postTask = async (data: TaskType): Promise<TaskType> => {
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`)
     }
-
-    const result: TaskType = await response.json()
+    const result: Task = await response.json()
     return result
   } catch (error) {
     console.error("Fetch error:", error)
