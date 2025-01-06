@@ -6,7 +6,7 @@ export interface BoardState {
     error: string;
 }
 export interface Task {
-  _id: string;
+  _id?: string;
   belong: TaskStatus;
   title: string;
   description: string;

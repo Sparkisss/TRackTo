@@ -1,30 +1,25 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Modal, Input, Space, Form } from "antd"
-import { postTask } from "@/shared/api/tasks"
 import { useAppDispatch } from "@/features/auth"
-import { fetchTasks } from "../../model/taskSlice"
+import { updateTask } from "../../model/taskSlice"
+
 interface PropsTaskModal {
   isModalOpen: boolean;
   handleOk: () => void;
   handleCancel: () => void;
+  id?: string;
 }
 
-const AddTaskModal: React.FC<PropsTaskModal> = ({ isModalOpen, handleOk, handleCancel }) => {
+const EditTaskModal: React.FC<PropsTaskModal> = ({ isModalOpen, handleOk, handleCancel, id }) => {
   const [form] = Form.useForm()
   const dispatch = useAppDispatch()
 
   const handleSubmit = () => {    
     form.validateFields()
       .then(values => {
-        postTask({
-          belong: "TODO",
-          title: values.title,
-          description: values.description,
-          status: false,
-        }).then(() => {
-          dispatch(fetchTasks("http://localhost:7000/tasks"))
-        })  
+        if (id) {dispatch(updateTask({ id: id, task: {title: values.title, description: values.description}}))}
+      }).then (() => {
         handleOk()
         form.resetFields()
       })
@@ -60,4 +55,4 @@ const AddTaskModal: React.FC<PropsTaskModal> = ({ isModalOpen, handleOk, handleC
   ) : null
 }
 
-export default AddTaskModal
+export default EditTaskModal

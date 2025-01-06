@@ -27,10 +27,60 @@ app.post('/add/task', async (req, res) => {
     res.status(200).json('OK')
 })
 
+app.put('/tasks/:id', async (req, res) => {
+    const { id } = req.params
+    const { belong, title, description, status } = req.body
+
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(
+            id,
+            { belong, title, description, status },
+            { new: true }
+        )
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found' })
+        }
+
+        res.status(200).json(updatedTask)
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating task', error })
+    }
+})
+
+app.delete('/tasks/:id', async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const deletedTask = await Task.findByIdAndDelete(id)
+
+        if (!deletedTask) {
+            return res.status(404).json({ message: 'Task not found' })
+        }
+
+        res.status(200).json({ message: 'Task deleted successfully' })
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting task', error })
+    }
+})
+
 app.get('/tasks', async(req, res) => {
     try {
         const tasks = await Task.find()
         res.status(200).json(tasks);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
+app.get('/task/:id', async (req, res) => {
+    const { id } = req.params
+    try {
+        const task = await Task.findById(id)
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found'})
+        }
+        res.status(200).json(task)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

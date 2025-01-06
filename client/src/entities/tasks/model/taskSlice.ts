@@ -20,46 +20,75 @@ export const fetchTasks = createAsyncThunk<Task[], string>(
   },
 )
 
+export const fetchTasksById = createAsyncThunk<Task[], string>(
+  "tasks/fetchTasksById",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://localhost:7000/tasks/${id}`)
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`)
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }     
+      return rejectWithValue("An unknown error occurred")
+    }
+  },
+)
+
+export const updateTask = createAsyncThunk<Task, { id: string, task: Partial<Task> }>(
+  "tasks/updateTask",
+  async ({ id, task }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://localhost:7000/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      })
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`)
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+      return rejectWithValue("An unknown error occurred")
+    }
+  },
+)
+
+export const deleteTask = createAsyncThunk<string, string>(
+  "tasks/deleteTask",
+  async (id, {rejectWithValue}) => {
+    try {
+      const response = await fetch(`http://localhost:7000/tasks/${id}`, {
+        method: "DELETE",
+      })
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`)
+      }
+      return id
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+      return rejectWithValue("An unknown error occurred")
+    }    
+  },
+)
+
 export const initialState: BoardState = {
   tasks: [],
   isLoading: false,
   error: "",
 }
-
-// export const initialState: BoardState = {
-//   tasks: [
-//     {
-//       id: "1",
-//       title: "Research Project",
-//       description: "Gather requirements and create initial documentation",
-//       belong: "TODO",
-//       status: false,
-//     },
-//     {
-//       id: "2",
-//       title: "Design System",
-//       description: "Create component library and design tokens",
-//       belong: "TODO",
-//       status: false,    
-//     },
-//     {
-//       id: "3",
-//       title: "API Integration-Igor",
-//       description: "Implement REST API endpoints",
-//       belong: "IN_PROGRESS",
-//       status: false,
-//     },
-//     {
-//       id: "4",
-//       title: "Testing",
-//       description: "Write unit tests for core functionality",
-//       belong: "DONE",
-//       status: false,
-//     },
-//   ],
-//   isLoading: false,
-//   error: "",
-// }
 
 export const tasksSlice = createSlice({
   name: "tasks",
@@ -68,7 +97,6 @@ export const tasksSlice = createSlice({
     getData: (state, action: PayloadAction<string>) => {
       state.tasks.forEach((item) => {
         item.title = item.title + action.payload
-        console.log(item.title)
       })
     },
   },
@@ -83,6 +111,21 @@ export const tasksSlice = createSlice({
         state.tasks = action.payload
       })
       .addCase(fetchTasks.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload as string
+      })
+      .addCase(updateTask.pending, (state) => {
+        state.isLoading = true
+        state.error = ""
+      })
+      .addCase(updateTask.fulfilled, (state, action: PayloadAction<Task>) => {
+        state.isLoading = false
+        const index = state.tasks.findIndex(task => task._id === action.payload._id)
+        if (index !== -1) {
+          state.tasks[index] = action.payload
+        }
+      })
+      .addCase(updateTask.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload as string
       })

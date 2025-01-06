@@ -6,7 +6,7 @@ import { SideBar } from "./SideBar"
 import module from "./Task.module.scss"
 import { useAppDispatch, useAppSelector } from "@/features/auth"
 import { RootState } from "@/app/store/store"
-import { fetchTasks } from "@/entities/tasks/model/taskSlice"
+import { fetchTasks, updateTask } from "@/entities/tasks/model/taskSlice"
 
 const COLUMNS: ColumnType[] = [
   { id: "TODO", title: "To Do" },
@@ -17,7 +17,6 @@ const COLUMNS: ColumnType[] = [
 export function Tasks() {
   const {tasks, isLoading, error} = useAppSelector((state: RootState) => state.tasks)
   const [task, setTasks] = useState<Task[]>(tasks)
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -48,6 +47,8 @@ export function Tasks() {
         task._id === taskId ? { ...task, belong: newStatus } : task,
       ),
     )
+
+    dispatch(updateTask({ id: taskId, task: { belong: newStatus } }))
   }
 
   if (isLoading) return <div>Loading...</div> 
