@@ -1,9 +1,9 @@
 import { Flex, Tooltip, Button } from "antd"
 import { CheckOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { useAppDispatch } from "@/features/auth"
-import { deleteTask, fetchTasks, updateTask } from "@/entities/tasks/model/taskSlice"
+import { deleteTask, fetchTasks, updateTask } from "@/entities/tasks/model/slice/taskSlice"
 import EditTaskModal from "@/entities/tasks/ui/EditTaskModal/EditTaskModal"
-import { useModal } from "../model/hooks/useModal"
+import { useModal } from "@/entities/tasks/model/hooks/useModal"
 
 type ButtonCardProps = {
     disabled: boolean;

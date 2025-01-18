@@ -1,6 +1,8 @@
 import { User } from "@/entities/user/model/types"
 import { Task } from "@/features/dragAndDrop/model/types"
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export const listLoader = async (url: string): Promise<User[]> => {
   try {
     const response = await fetch(url)
@@ -10,14 +12,14 @@ export const listLoader = async (url: string): Promise<User[]> => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error("Fetch error:", error)
-    throw error
+    const newError = error as Error    
+    throw new Error(`Failed to fetch data from ${url}: ${newError.message}`)
   }
 }
 
 export const postTask = async (data: Task): Promise<Task> => {
   try {
-    const response = await fetch("http://localhost:7000/add/task", {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,7 @@ export const postTask = async (data: Task): Promise<Task> => {
     const result: Task = await response.json()
     return result
   } catch (error) {
-    console.error("Fetch error:", error)
-    throw error
+    const newError = error as Error   
+    throw new Error(`Failed to fetch data from ${API_URL}: ${newError.message}`)   
   }
 }

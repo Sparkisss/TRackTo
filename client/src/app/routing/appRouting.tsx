@@ -2,7 +2,17 @@ import { createBrowserRouter } from "react-router-dom"
 import { MainLayout } from "@/shared/ui/main-layout/index"
 import { listLoader } from "@/shared/api/tasks"
 import { AuthObserver } from "@/features/auth"
-import { Statistics, Tasks, Equipment, Control, PickInfo, Auth, ListOfUsers } from "@/shared/lazyImports"
+import { 
+  Statistics, 
+  Tasks, 
+  Equipment, 
+  Control, 
+  PickInfo, 
+  Auth, 
+  ListOfUsers, 
+  Setting, 
+  Dashboard, 
+} from "@/shared/lazyImports"
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +26,7 @@ export const router = createBrowserRouter([
       {
         path: "list",
         element: <ListOfUsers />,
-        loader:() => listLoader("https://jsonplaceholder.typicode.com/users"),
+        loader:() => listLoader(import.meta.env.VITE_API_USERS),
       },
       {
         path: "list/:id",
@@ -40,11 +50,11 @@ export const router = createBrowserRouter([
           },
           {
             path: "list/dashboard", 
-            element: <div>dashboard</div>,                                                                   
+            element: <Dashboard />,                                                                   
           },
           {
             path: "list/setting", 
-            element: <div>setting</div>,                                                                   
+            element: <Setting />,                                                                   
           },
         ],
       },

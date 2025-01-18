@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import { Modal, Input, Space, Form } from "antd"
 import { postTask } from "@/shared/api/tasks"
 import { useAppDispatch } from "@/features/auth"
-import { fetchTasks } from "../../model/taskSlice"
+import { fetchTasks } from "../../model/slice/taskSlice"
 interface PropsTaskModal {
   isModalOpen: boolean;
   handleOk: () => void;

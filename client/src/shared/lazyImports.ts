@@ -7,3 +7,5 @@ export const Control = React.lazy(() => import("@/pages").then(module => ({ defa
 export const PickInfo = React.lazy(() => import("@/pages").then(module => ({ default: module.PickInfo })))
 export const Auth = React.lazy(() => import("@/pages").then(module => ({ default: module.Auth })))
 export const ListOfUsers = React.lazy(() => import("@/pages").then(module => ({ default: module.ListOfUsers })))
+export const Setting = React.lazy(() => import("@/pages").then(module => ({ default: module.Setting})))
+export const Dashboard = React.lazy(() => import("@/pages").then(module => ({default: module.Dashboard})))

@@ -1,12 +1,14 @@
 import { List } from "antd"
 import { Link, useLoaderData } from "react-router-dom"
 import { User } from "@/entities/user/model/types"
+import classes from "./ListOfUsers.module.scss"
 
 export function ListOfUsers() {
   const users = useLoaderData() as User[]
 
   return ( 
     <List
+      className={classes.wrap}
       itemLayout="vertical"
       size="large"
       pagination={{   
@@ -18,14 +20,13 @@ export function ListOfUsers() {
           key={item.id}          
           extra={
             <img
-              width={220}
+              className={classes.image}             
               alt="logo"
               src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
             />
           }
         >
-          <List.Item.Meta
-            style={{width: 1000}}            
+          <List.Item.Meta      
             title={<Link to={`/list/${item.id}`}>{item.name}</Link>}
             description={
               <>
@@ -37,7 +38,7 @@ export function ListOfUsers() {
           />
           {item.address.city}
         </List.Item>
-      )}
+      )}      
     />
   )
 }

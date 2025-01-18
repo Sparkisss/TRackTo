@@ -1,5 +1,4 @@
 import { useDraggable } from "@dnd-kit/core"
-
 import { Task } from "@/features/dragAndDrop/model/types"
 
 type TaskCardProps = {
@@ -21,7 +20,6 @@ export function TaskCard({ task, className }: TaskCardProps) {
   return (
     <div ref={setNodeRef} {...listeners} {...attributes} className={className} style={style}>
       {task.title} {task.description}
-
     </div>
   )
 }

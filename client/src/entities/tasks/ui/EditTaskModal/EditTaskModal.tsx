@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { Modal, Input, Space, Form } from "antd"
 import { useAppDispatch } from "@/features/auth"
-import { updateTask } from "../../model/taskSlice"
+import { updateTask } from "../../model/slice/taskSlice"
 
 interface PropsTaskModal {
   isModalOpen: boolean;

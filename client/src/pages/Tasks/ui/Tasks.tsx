@@ -1,29 +1,24 @@
 import { useState, useMemo, useEffect } from "react"
 import { DndContext, DragEndEvent } from "@dnd-kit/core"
-import { ColumnType, Task } from "@/features/dragAndDrop/model/types"
-import { Column } from "./Column"
-import { SideBar } from "./SideBar"
+import { Task } from "@/features/dragAndDrop/model/types"
+import { Column } from "@/features/dragAndDrop/ui/Column"
+import { SideBar } from "@/widgets/Sidebar/ui/SideBar"
 import module from "./Task.module.scss"
 import { useAppDispatch, useAppSelector } from "@/features/auth"
 import { RootState } from "@/app/store/store"
-import { fetchTasks, updateTask } from "@/entities/tasks/model/taskSlice"
-
-const COLUMNS: ColumnType[] = [
-  { id: "TODO", title: "To Do" },
-  { id: "IN_PROGRESS", title: "In Progress" },
-  { id: "DONE", title: "Done" },
-]
+import { fetchTasks, updateTask } from "@/entities/tasks/model/slice/taskSlice"
+import { COLUMNS } from "@/entities/tasks/model/columnData/columns"
 
 export function Tasks() {
   const {tasks, isLoading, error} = useAppSelector((state: RootState) => state.tasks)
-  const [task, setTasks] = useState<Task[]>(tasks)
   const dispatch = useAppDispatch()
+  const [task, setTasks] = useState<Task[]>(tasks)  
 
   useEffect(() => {
     dispatch(fetchTasks("http://localhost:7000/tasks"))    
   }, [dispatch])
 
-  useEffect(() => { 
+  useEffect(() => {
     setTasks(tasks)
   }, [tasks])
 

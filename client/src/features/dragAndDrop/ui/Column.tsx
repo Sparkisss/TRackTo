@@ -2,9 +2,9 @@ import { useDroppable } from "@dnd-kit/core"
 import { Button } from "antd"
 import { TaskCard } from "./TaskCard"
 import AddTaskModal from "@/entities/tasks/ui/AddTaskModal/AddTaskModal"
-import { useModal } from "../model/hooks/useModal"
-import { ColumnProps } from "../model/types/types"
-import { ButtonCard } from "./ButtonCard"
+import { useModal } from "@/entities/tasks/model/hooks/useModal"
+import { ColumnProps } from "@/entities/tasks/model/types/types"
+import { ButtonCard } from "@/features/dragAndDrop/ui/ButtonCard"
 
 export function Column({ column, className, tasks, cardClassName } : ColumnProps ) {
   const { isModalOpen, showModal, handleOk, handleCancel } = useModal()
