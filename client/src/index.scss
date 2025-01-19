@@ -117,4 +117,17 @@ main {
   align-items: center;
   flex-direction: column;
   gap: 2rem;
+  background-color: var(--background-color);
+  color: var(--text-color)!important;
 }
+
+:root {
+  --background-color: #e5e9d88f;
+  --text-color: #161515;
+}
+
+[data-theme='dark'] {
+  --background-color: #0000007c;
+  --text-color: #ffffff;
+}
+
