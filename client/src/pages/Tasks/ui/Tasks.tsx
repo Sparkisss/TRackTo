@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/features/auth"
 import { RootState } from "@/app/store/store"
 import { fetchTasks, updateTask } from "@/entities/tasks/model/slice/taskSlice"
 import { COLUMNS } from "@/entities/tasks/model/columnData/columns"
+import { Loader } from "@/shared/ui/loader/Loader"
 
 export function Tasks() {
   const {tasks, isLoading, error} = useAppSelector((state: RootState) => state.tasks)
@@ -46,12 +47,10 @@ export function Tasks() {
     dispatch(updateTask({ id: taskId, task: { belong: newStatus } }))
   }
 
-  if (isLoading) return <div>Loading...</div> 
-  if (error) return <div>Error: {error}</div>
-
   return (
     <div className={module.wrapper}>
-      <SideBar />  
+      <SideBar />
+      <Loader isLoading={isLoading} error={error}/>
       <DndContext onDragEnd={handleDrag}>
         {COLUMNS.map((column) => (
           <Column
